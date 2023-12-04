@@ -37,6 +37,7 @@ export default {
       // Dispatch the toggleTodo action with the current todo
       if (this.newtodotitle != undefined && this.newtodotitle != "")
         await this.$store.dispatch("addTodo", this.newtodotitle);
+      this.newtodotitle=undefined;
     },
   },
   data() {

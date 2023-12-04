@@ -17,7 +17,8 @@ export const mutations = {
     }
   },
   ADD_TODO(state, todo) {
-    state.todos = state.todos.push(todo);
+    console.log(todo);
+   state.todos.push(todo);
   },
   DELETE_TODO(state, deletedtodo) {
     const index = state.todos.findIndex((todo) => todo.id === deletedtodo.id);
@@ -69,9 +70,9 @@ export const actions = {
         completed: false,
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         // If the response is successful, update the todo in the state
-        commit("ADD_TODO", response.data);
+        commit("ADD_TODO", response.data.data);
       } else {
         console.error("Failed to update todo completion:", response.statusText);
       }
