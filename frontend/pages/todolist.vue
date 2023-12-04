@@ -1,29 +1,30 @@
 <template>
   <div class="todo-page">
-    <h1>My Todo List</h1>
-    <ul>
-      <!-- Loop through the todos and display their title and status -->
-      <li v-for="todo in todos" :key="todo.id">
-        <span>{{ todo.title }}</span>
-        <span>{{ todo.completed ? 'Done' : 'Pending' }}</span>
-      </li>
-    </ul>
+    <h1>Your Todo List</h1>
+    <div v-for="todo in todos" :key="todo.id">
+      <Todo :todo="todo" />
+    </div>
   </div>
 </template>
 
 <script>
+import Todo from "@/components/todo.vue";
+
 export default {
   // Use the fetch hook to call the action before rendering the page
   async fetch() {
-    await this.$store.dispatch('fetchTodos')
+    await this.$store.dispatch("fetchTodos");
   },
   // Use a computed property to get the todos from the state
   computed: {
     todos() {
-      return this.$store.state.todos
-    }
-  }
-}
+      return this.$store.state.todos;
+    },
+  },
+  components: {
+    Todo,
+  },
+};
 </script>
 
 <style>
