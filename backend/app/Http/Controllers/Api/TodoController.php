@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Todo;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\TodoResource;
+use App\Http\Resources\TodoCollection;
 
 class TodoController extends Controller
 {
@@ -13,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return new TodoCollection(Todo::paginate());
     }
 
     /**
@@ -29,7 +32,7 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        //
+        return new TodoResource(Todo::create($request->all()));
     }
 
     /**
@@ -37,7 +40,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return new TodoResource($todo);
     }
 
     /**
