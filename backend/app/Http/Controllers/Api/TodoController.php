@@ -16,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return new TodoCollection(Todo::paginate());
+        return new TodoCollection(Todo::all());
     }
 
     /**
@@ -62,8 +62,20 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todo $todo)
+    public function destroy($id)
     {
-        //
+        // Find the todo by ID
+        $todo = Todo::find($id);
+
+        // Check if the todo exists
+        if (!$todo) {
+            return response()->json(['message' => 'Todo not found'], 404);
+        }
+
+        // Delete the todo
+        $todo->delete();
+
+        // Respond with success message or appropriate response
+        return response()->json(['message' => 'Todo deleted successfully']);
     }
 }

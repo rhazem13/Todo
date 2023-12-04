@@ -8,14 +8,23 @@ export const mutations = {
   SET_TODOS(state, todos) {
     state.todos = todos;
   },
-  TOGGLE_TODO(state, updatedTodo ){
-    updatedTodo.completed= !updatedTodo.completed;
+  TOGGLE_TODO(state, updatedTodo) {
+    updatedTodo.completed = !updatedTodo.completed;
     const index = state.todos.findIndex((todo) => todo.id === updatedTodo.id);
     if (index !== -1) {
       // Update the todo in the state array
       state.todos.splice(index, 1, updatedTodo);
     }
-  }
+  },
+  ADD_TODO(state, todo) {
+    state.todos = state.todos.push(todo);
+  },
+  DELETE_TODO(state, deletedtodo) {
+    const index = state.todos.findIndex((todo) => todo.id === deletedtodo.id);
+    if (index !== -1) {
+      state.todos.splice(index, 1);
+    }
+  },
 };
 
 export const actions = {
@@ -44,6 +53,41 @@ export const actions = {
       if (response.status === 200) {
         // If the response is successful, update the todo in the state
         commit("TOGGLE_TODO", todo);
+      } else {
+        console.error("Failed to update todo completion:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating todo completion:", error);
+    }
+  },
+
+  async addTodo({ commit }, todoTitle) {
+    try {
+      // Send a PATCH request to update the completion status
+      const response = await this.$axios.post(`/todos`, {
+        title: todoTitle,
+        completed: false,
+      });
+
+      if (response.status === 200) {
+        // If the response is successful, update the todo in the state
+        commit("ADD_TODO", response.data);
+      } else {
+        console.error("Failed to update todo completion:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating todo completion:", error);
+    }
+  },
+
+  async deleteTodo({ commit }, todo) {
+    try {
+      // Send a PATCH request to update the completion status
+      const response = await this.$axios.delete(`/todos/${todo.id}`);
+
+      if (response.status === 200) {
+        // If the response is successful, update the todo in the state
+        commit("DELETE_TODO", todo);
       } else {
         console.error("Failed to update todo completion:", response.statusText);
       }

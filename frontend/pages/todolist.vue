@@ -1,6 +1,14 @@
 <template>
   <div class="todo-page">
     <h1>Your Todo List</h1>
+    <a-input-group compact>
+      <a-input
+        v-model="newtodotitle"
+        placeholder="Create new task"
+        style="width: calc(100% - 200px)"
+      />
+      <a-button type="primary" @click="addTodo">Add</a-button>
+    </a-input-group>
     <div v-for="todo in todos" :key="todo.id">
       <Todo :todo="todo" />
     </div>
@@ -23,6 +31,18 @@ export default {
   },
   components: {
     Todo,
+  },
+  methods: {
+    async addTodo() {
+      // Dispatch the toggleTodo action with the current todo
+      if (this.newtodotitle != undefined && this.newtodotitle != "")
+        await this.$store.dispatch("addTodo", this.newtodotitle);
+    },
+  },
+  data() {
+    return {
+      newtodotitle: "",
+    }
   },
 };
 </script>
