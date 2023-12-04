@@ -1,17 +1,25 @@
 <template>
   <div class="todo-page">
-    <h1>Your Todo List</h1>
-    <a-input-group compact>
-      <a-input
-        v-model="newtodotitle"
-        placeholder="Create new task"
-        style="width: calc(100% - 200px)"
-      />
-      <a-button type="primary" @click="addTodo">Add</a-button>
-    </a-input-group>
-    <div v-for="todo in todos" :key="todo.id">
-      <Todo :todo="todo" />
-    </div>
+    <h1>Your Todo List</h1><Icon name="uil:github" color="black" />
+    <a-row type="flex" align="middle" justify="center">
+      <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+        <a-input-group class="inputgroup" compact>
+          <a-input
+            v-model="newtodotitle"
+            placeholder="Create new task"
+            style="width: calc(100% - 60px)"
+          />
+          <a-button type="primary" @click="addTodo">Add</a-button>
+        </a-input-group>
+      </a-col>
+    </a-row>
+    <a-row type="flex" align="middle" justify="center">
+      <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+        <div v-for="todo in todos" :key="todo.id">
+          <Todo :todo="todo" />
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -37,13 +45,13 @@ export default {
       // Dispatch the toggleTodo action with the current todo
       if (this.newtodotitle != undefined && this.newtodotitle != "")
         await this.$store.dispatch("addTodo", this.newtodotitle);
-      this.newtodotitle=undefined;
+      this.newtodotitle = undefined;
     },
   },
   data() {
     return {
       newtodotitle: "",
-    }
+    };
   },
 };
 </script>
@@ -55,9 +63,12 @@ export default {
 }
 
 .todo-page h1 {
+  margin-top: 40px;
   text-align: center;
 }
-
+.inputgroup{
+  margin-bottom: 20px;
+}
 .todo-page ul {
   list-style: none;
   padding: 0;

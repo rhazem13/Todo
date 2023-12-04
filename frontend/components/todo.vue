@@ -1,12 +1,15 @@
 <!-- components/Todo.vue -->
 <template>
   <div v-if="todo" class="todo">
-    <input type="checkbox" :checked="todo.completed" @change="toggleTodo" />
-    <span :class="{ completed: todo.completed }"
-      >{{ todo.title }}
-      <a-button size="small" type="danger" @click="deleteTodo">
-        <a-icon type="close" /> </a-button
-    ></span>
+    <div>
+      <a-checkbox  :checked="todo.completed" @change="toggleTodo" />
+      <span :class="{ completed: todo.completed }">
+        {{ todo.title }}
+      </span>
+    </div>
+    <a-button size="small" type="danger" @click="deleteTodo">
+      <a-icon type="delete" />
+    </a-button>
   </div>
   <div v-else>
     <!-- Handle the case where todo is undefined or null -->
@@ -39,7 +42,14 @@ export default {
 
 <style scoped>
 .todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 8px;
+  background-color: rgb(240, 240, 240);
+  padding: 8px;
+  border: 1px solid rgb(198, 198, 198);
+  border-radius: 8px;
 }
 
 .completed {
