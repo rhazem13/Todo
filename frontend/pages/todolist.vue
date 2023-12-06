@@ -15,9 +15,11 @@
     </a-row>
     <a-row type="flex" align="middle" justify="center">
       <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+        <draggable v-model="todos" @end="handleDragEnd">
         <div v-for="todo in todos" :key="todo.id">
           <Todo :todo="todo" />
         </div>
+        </draggable>
       </a-col>
     </a-row>
   </div>
@@ -25,6 +27,7 @@
 
 <script>
 import Todo from "@/components/todo.vue";
+import draggable from 'vuedraggable';
 
 export default {
   // Use the fetch hook to call the action before rendering the page
@@ -39,6 +42,7 @@ export default {
   },
   components: {
     Todo,
+    draggable
   },
   methods: {
     async addTodo() {
@@ -47,6 +51,9 @@ export default {
         await this.$store.dispatch("addTodo", this.newtodotitle);
       this.newtodotitle = undefined;
     },
+    async handleDragEnd({ oldIndex, newIndex }){
+      this.$store.commit('REORDER_TODOS', { oldIndex, newIndex });
+    }
   },
   data() {
     return {

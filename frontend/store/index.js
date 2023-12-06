@@ -18,13 +18,19 @@ export const mutations = {
   },
   ADD_TODO(state, todo) {
     console.log(todo);
-   state.todos.push(todo);
+    state.todos.push(todo);
   },
   DELETE_TODO(state, deletedtodo) {
     const index = state.todos.findIndex((todo) => todo.id === deletedtodo.id);
     if (index !== -1) {
       state.todos.splice(index, 1);
     }
+  },
+  REORDER_TODOS(state, { oldIndex, newIndex }) {
+    const todos = [...state.todos];
+    const [movedTodo] = todos.splice(oldIndex, 1);
+    todos.splice(newIndex, 0, movedTodo);
+    state.todos = todos;
   },
 };
 

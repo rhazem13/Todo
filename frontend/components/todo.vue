@@ -2,7 +2,7 @@
 <template>
   <div v-if="todo" class="todo">
     <div>
-      <a-checkbox  :checked="todo.completed" @change="toggleTodo" />
+      <a-checkbox  :checked="todo.completed==1" @change="toggleTodo" />
       <span :class="{ completed: todo.completed }">
         {{ todo.title }}
       </span>
