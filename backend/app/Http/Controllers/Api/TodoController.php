@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TodoResource;
 use App\Http\Resources\TodoCollection;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class TodoController extends Controller
 {
@@ -16,7 +17,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return new TodoCollection(Todo::all());
+        // $todos = Todo::orderBy('order')->get();
+
+        // return response()->json($todos);
+        return new TodoCollection( Todo::orderBy('order')->get());
     }
 
     /**
@@ -56,6 +60,9 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
+        $output = new ConsoleOutput();
+        $output->writeln('Hello from Terminal');
+        $output->writeln($request->all());
         $todo->update($request->all());
     }
 

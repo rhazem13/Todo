@@ -25,12 +25,14 @@ class UpdateTodoRequest extends FormRequest
         if($method=='PUT'){
          return [
             'title'=> ['required'],
-            "completed"=> ['required']
+            "completed"=> ['required'],
+            "order"=> ['required'],
         ];
     } else {
         return [
             'title'=> ['sometimes','required'],
-            "completed"=> ['sometimes','required']
+            "completed"=> ['sometimes','required'],
+            "order"=>['sometimes','required'],
         ];
     }
     }
