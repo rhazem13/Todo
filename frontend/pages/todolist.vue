@@ -15,11 +15,11 @@
     </a-row>
     <a-row type="flex" align="middle" justify="center">
       <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-        <draggable v-model="todos" @end="handleDragEnd">
+        <!-- <draggable v-model="todos" @end="handleDragEnd"> -->
         <div v-for="todo in todos" :key="todo.id">
           <Todo :todo="todo" />
         </div>
-        </draggable>
+        <!-- </draggable> -->
       </a-col>
     </a-row>
   </div>

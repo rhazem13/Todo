@@ -17,10 +17,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        // $todos = Todo::orderBy('order')->get();
-
-        // return response()->json($todos);
-        return new TodoCollection( Todo::orderBy('order')->get());
+     
+        return new TodoCollection( Todo::all());
     }
 
     /**

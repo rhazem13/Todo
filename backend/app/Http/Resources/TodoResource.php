@@ -19,7 +19,6 @@ class TodoResource extends JsonResource
             'title'=> $this->title,
             "completed"=> $this->completed,
             "created_at"=> $this->created_at,
-            "order"=>$this->order,
         ];
         // return parent::toArray($request);
     }

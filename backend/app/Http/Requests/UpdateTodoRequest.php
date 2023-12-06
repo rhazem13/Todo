@@ -26,13 +26,11 @@ class UpdateTodoRequest extends FormRequest
          return [
             'title'=> ['required'],
             "completed"=> ['required'],
-            "order"=> ['required'],
         ];
     } else {
         return [
             'title'=> ['sometimes','required'],
             "completed"=> ['sometimes','required'],
-            "order"=>['sometimes','required'],
         ];
     }
     }
