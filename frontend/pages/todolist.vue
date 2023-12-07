@@ -15,6 +15,11 @@
     </a-row>
     <a-row type="flex" align="middle" justify="center">
       <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+        <p class="hintText">*double click text to edit</p>
+      </a-col>
+    </a-row>
+    <a-row type="flex" align="middle" justify="center">
+      <a-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
         <!-- <draggable v-model="todos" @end="handleDragEnd"> -->
         <div v-for="todo in todos" :key="todo.id">
           <Todo :todo="todo" />
@@ -70,11 +75,16 @@ export default {
 }
 
 .todo-page h1 {
-  margin-top: 40px;
+  margin-top: 30px;
+  margin-bottom:30px;
   text-align: center;
 }
 .inputgroup{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+.hintText{
+  color:grey;
+  font-size: 12px;
 }
 .todo-page ul {
   list-style: none;
