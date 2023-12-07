@@ -26,11 +26,14 @@ export const mutations = {
       state.todos.splice(index, 1);
     }
   },
-  REORDER_TODOS(state, { oldIndex, newIndex }) {
-    const todos = [...state.todos];
-    const [movedTodo] = todos.splice(oldIndex, 1);
-    todos.splice(newIndex, 0, movedTodo);
-    state.todos = todos;
+
+  UPDATE_TODO_TITLE(state, { updatedTodo, title }) {
+    updatedTodo.title = title;
+    const index = state.todos.findIndex((todo) => todo.id === updatedTodo.id);
+    if (index !== -1) {
+      // Update the todo in the state array
+      state.todos.splice(index, 1, updatedTodo);
+    }
   },
 };
 
@@ -95,6 +98,24 @@ export const actions = {
       if (response.status === 200) {
         // If the response is successful, update the todo in the state
         commit("DELETE_TODO", todo);
+      } else {
+        console.error("Failed to update todo completion:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating todo completion:", error);
+    }
+  },
+
+  async updateTodo({ commit }, { todo, title }) {
+    try {
+      // Send a PATCH request to update the completion status
+      const response = await this.$axios.patch(`/todos/${todo.id}`, {
+        title: title,
+      });
+
+      if (response.status === 200) {
+        // If the response is successful, update the todo in the state
+        commit("UPDATE_TODO_TITLE", {updatedTodo: todo,title: title });
       } else {
         console.error("Failed to update todo completion:", response.statusText);
       }
